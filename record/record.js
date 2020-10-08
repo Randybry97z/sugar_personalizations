@@ -1,14 +1,13 @@
 ({
     extendsFrom: 'RecordView',
-    primera_vez : true,
 
     initialize: function(options) {
         this._super('initialize', [options]);
-
-        this.model.on("change:un_unidades_accounts_1un_unidades_ida",this.buscarInstitucion, this);
+        //this.model.on("change:un_unidades_accounts_1un_unidades_ida",this.buscarInstitucion, this);
+        this.listenTo(this, "data:sync:complete", this.loadLastMeetingDate(options))
     },
 
-    buscarInstitucion: function () {
+/*    buscarInstitucion: function () {
         var self = this;
 
         if (this.primera_vez){
@@ -48,5 +47,43 @@
                 renderField.render();
             },
         });
-    },
+    },*/
+
+    loadLastMeetingDate: function(options){
+    	myData = new Object();
+    	this.myData = myData;
+
+    	this.render();
+
+    	if(options && _.isFunction(options.complete)){
+    		options.complete();
+    	}
+
+    	let self = this;
+    	let account = self.model.attributes.id;
+    	//let url = "Accounts/"+ account +"/link/Meetings";
+    	app.api.call('GET', app.api.buildURL("Accounts/"+ account +"/link/meetings"), null , {
+    		success: function(data){
+    			if(data.records.length == 0) {
+    				self.myData['lastMeeting'] = '';
+    				self.render();
+    				return;
+    			}
+    			self.myData['meetingsCount'] = data.records.length;
+    			self.render();
+    			let today = new Date();
+    			let date_start = new Date(data.records[0].date_start);
+    			let months = today.getMonth() - date_start.getMonth();
+    			if(months == 0){
+    				let days = Math.abs(today.getDate() - date_start.getDate());
+    				self.myData['lastMeeting'] = days + ' días';
+    				self.render();
+    			}else{
+    				self.myData['lastMeeting'] = months + ' meses';
+    				self.render();
+    			}
+    		}
+    	})
+	  }
+
 })

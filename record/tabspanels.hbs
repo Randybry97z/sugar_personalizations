@@ -11,47 +11,6 @@
  */
 --}}
 {{! if the first panel uses panels, then the rest use panels, so don't use tabview }}
-<div class="container contact-data" style="margin: 2rem; display: flex; justify-content: space-between;width: auto;">
-  <div class="flex" style="font-size: 1rem;">
-      <p>Industry</p>
-      <p>Client tiers</p>
-      <p>Type <strong>Company</strong></p>
-      <p>Clients 1200</p>
-  </div>
-  <div class="flex" style="width: 50% max-width: 60%; border: 2px; box-shadow: #c1c1c1 0 10px 15px; display: flex;">
-    <div class="img">
-      <img src="https://cdn.britannica.com/54/188754-050-A3613741/Elon-Musk-2010.jpg" alt="Elon-Musk-2010" style="max-width: 10rem; max-height: 10rem;">
-    </div>
-    <div class="data">
-      <div class="table">
-        <div class="row-fluid" style="display: flex;align-items: center;margin: 0 1rem;width: 30rem; max-width: 50rem">
-          <div class="span6">
-            <h3>Elon Musk</h3>
-            <span>CEO of SpaceX</span>
-          </div>
-          <div class="span6" style="margin-top: 1rem;">
-            <p>
-              <span>
-                <i class="fa fa-envelope fa-large" style="margin-right: 5px"></i> <a href="mailto: asdasdas@asdas.com" style="font-size: 12px">elon.musk@spacex.com</a>
-              </span>
-            </p>
-            <p>
-              <span>
-                <i class="fa fa-phone fa-large" style="margin-right: 5px"></i> <a href="tel: 123456789">123456789</a>
-              </span>
-            </p>
-            <p>
-              <span>
-                <i class="fa fa-map-marker fa-large" style="margin-right: 5px"></i> <span>San Francisco, USA</span>
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
 <div class="record tab-layout{{#if view.createMode}} record-create{{/if}}">
 {{#if view.meta.firstPanelIsTab}}
     <div class="content-tabs">

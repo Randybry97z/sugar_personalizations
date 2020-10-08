@@ -10,4 +10,8 @@ Para modificar el layout del registro tendremos que hacerlo en record/tabspanels
 La carpeta de record debe ser copiada en la misma que la anterior.
 =======
 <SugarCRM_instance> /custom/modules/Sugar_Module/clients/base/views/
+
+La carpeta layouts debe ir en la ruta:
+
+<SugarCRM_instance> /custom/modules/Sugar_Module/clients/base/
 >>>>>>> 185ff6d5b0c54663f997d84e33cab000e4041eeb
