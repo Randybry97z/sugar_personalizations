@@ -77,7 +77,7 @@
         <div class="span12">
           <div class="row-fluid">
             <div class="span4">
-              <b>Events</b>
+              <b>Eventos</b>
               <div class="container-fixed-height margin-top" style="margin-top: 10px;min-height: 30px;position: relative;">
                 <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: 40%;margin-left: -10px">
                   <span class="number-huge" style="font-size: 28px;">40</span>
@@ -98,34 +98,36 @@
               </div>
             </div>
             <div class="span4">
-              <b>Meetings</b>
+              <b>Reuniones</b>
               <div class="container-fixed-height margin-top" style="margin-top: 10px;min-height: 30px;position: relative;">
-                <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: {{meetingsCount}}%;margin-left: -10px">
+                <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: calc({{plannedMeetings.length}}*2*10%);margin-left: -10px">
                   <span class="number-huge" style="font-size: 28px;">
-                  	{{#if meetingsCount}}
-                  		{{meetingsCount}}
+                  	{{#if plannedMeetings}}
+                  		{{plannedMeetings.length}}
                   	{{else}}
                   		0
                   	{{/if}}
                   </span>
                   <br/>
-                  <i class="fa fa-sort-desc big" style="margin-top: -15px; font-size: 2em;"></i>
                 </div>
               </div>
               <div class="progress">
-                <div class="bar" role="progressbar" style="width: {{meetingsCount}}%;border-radius: 0px;"></div>
-                <div class="bar completed-bar" role="progressbar" style="width: 30%;background-color: #0100ff; border-radius: 0px;"></div>
+                <div class="bar" role="progressbar" style="width: calc({{plannedMeetings.length}}*10%);border-radius: 0px; background-color: yellow;"></div>
+                <div class="bar completed-bar" role="progressbar" style="width: calc({{heldedMeetings.length}}*10%);background-color: #00975C; border-radius: 0px;"></div>
               </div>
               <div class="container-fixed-height margin-bottom" style="margin-bottom: 10px;min-height: 30px;position: relative;">
-                <div class="performance_number" style="left:30%;margin-left: -12px;text-align: center;position: absolute;top: 0px;">
-                  <i class="fa fa-sort-asc"></i>
+                <div class="performance_number" style="left:calc({{heldedMeetings.length}}*10%);margin-left: -12px;text-align: center;position: absolute;top: 0px;">
                   <br>
-                  <span class="number-big" style="font-size: 20px;">30</span>
+                  <span class="number-big" style="font-size: 20px;">{{#if heldedMeetings}}
+                      {{heldedMeetings.length}}
+                    {{else}}
+                      0
+                    {{/if}}</span>
                 </div>
               </div>
             </div>
             <div class="span4">
-              <b>Calls</b>
+              <b>Llamadas</b>
               <div class="container-fixed-height margin-top" style="margin-top: 10px;min-height: 30px;position: relative;">
                 <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: 30%;margin-left: -10px">
                   <span class="number-huge" style="font-size: 28px;">30</span>
@@ -172,8 +174,13 @@
   </div>
   <div class="span3">
     <div class="square-blue" style="background-color: #176DE5; color: white; padding: 25px; height: 45px; width: 150px; font-size: 20px; vertical-align: middle;text-align: center;">
-      <i class="fa fa-money fa-2x" style="color: white;"></i> $200,000
-      <div class="big10" style="font-size: 11px;">YTD Revenue</div>
+      <i class="fa fa-money fa-2x" style="color: white;"></i>
+      {{#if amount_ytd}}
+      <span>{{amount_ytd}}</span>
+      <div class="big10" style="font-size: 11px;">Ingresos del año</div>
+      {{else}}
+        <span>Sin ventas cerradas</span>
+      {{/if}}
     </div>
   </div>
   <div class="span3">
