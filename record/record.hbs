@@ -18,22 +18,26 @@
     {{#with myData}}
 	<div class="row-fluid contact-data" style="margin: 2rem; display: flex; justify-content: space-between;width: auto;">
   	<div class="span4" style="font-size: 1rem;">
-      <p>Industry</p>
-      <p>Client tiers</p>
-      <p>Type <strong>Company</strong></p>
-      <p>Clients 1200</p>
+      <p>{{customerData.industry}}</p>
+      <p>Tipo <strong>{{customerData.type}}</strong></p>
+      <p>Empleados {{customerData.employees}}</p>
   	</div>
   <div class="span8">
     <div class="row-fluid">
       <div class="shadow1" style="box-shadow: 3px 3px 5px #aaaaaa;">
+        {{#if contact.name}}
         <div class="row-fluid">
           <div class="span2">
-            <img src="https://cdn.britannica.com/54/188754-050-A3613741/Elon-Musk-2010.jpg" alt="Elon-Musk-2010" style="width: 100px;">
+            {{#if contact.image}}
+              <img src="rest/v11_8/Contacts/{{contact.id}}/file/picture?format=sugar-html-json&platform=base&_hash=3bad5140-0ca0-11eb-916d-080027a9fb58" alt="{{contact-image}}" style="width: 100px; min-height: 140px; max-height: 160px;">
+            {{else}}
+              <div style="width: 100px;min-height: 140px;max-height: 160px;display: flex;justify-content: center;align-items: center;color: #ccc;">No image</div>
+            {{/if}}
           </div>
           <div class="span5">
-            <a href="#" class="account-link" style="font-size: 20px;">Elon Musk</a>
+            <a href={{contact.link_contact}} class="account-link" style="font-size: 20px;">{{contact.name}}</a>
             <br>
-              CEO of SpaceX
+              {{contact.title}}
           </div>
           <div class="span5">
             <table>
@@ -43,32 +47,38 @@
                     <i class="fa fa-envelope fa-large"></i>
                   </td>
                   <td>
-                    <a rel="tooltip" data-placement="bottom" class="ellipsis_inline" href="mailto: asdasdas@asdas.com" data-action="email" data-email-to="elon.musk@spacex.com" data-original.title="elon.musk@spacex.com (Primary)" style="font-size: 12px">elon.musk@spacex.com</a>
+                    <a rel="tooltip" data-placement="bottom" class="ellipsis_inline" href="mailto: {{contact.email}}" data-action="email" data-email-to={{contact.email}} data-original.title="{{contact.email}} (Primary)" style="font-size: 12px">{{contact.email}}</a>
                   </td>
                 </tr>
+                  {{#if contact.mobile}}
                 <tr>
                   <td>
                     <i class="fa fa-phone fa-large"></i>
                   </td>
                   <td>
-                    <a href="tel: 123456789">12345678910</a>
+                    <a href="tel: {{contact.mobile}}">{{contact.mobile}}</a>
                   </td>
                 </tr>
+                  {{/if}}
                 <tr>
                   <td>
                     <i class="fa fa-map-marker fa-large"></i>
                   </td>
                   <td>
-                    <address style="display: inline;"><strong>USA.</strong><br/> San Francisco</address>
+                    <address style="display: inline;"><strong>{{contact.country}}</strong><br/> {{contact.state}}, {{contact.city}}</address>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+        {{else}}
+        <div class="row-fluid" style="height: 100px;">
+          <h1 style="display: flex;justify-content: center;margin-top: 2rem;color:#ccc;">No Contact Data</h1>
+        </div>
+        {{/if}}
       </div>
     </div>
-
       <div style="height: 25px;"></div>
       {{!--/*
         *Progress bars
@@ -79,29 +89,27 @@
             <div class="span4">
               <b>Eventos</b>
               <div class="container-fixed-height margin-top" style="margin-top: 10px;min-height: 30px;position: relative;">
-                <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: 40%;margin-left: -10px">
-                  <span class="number-huge" style="font-size: 28px;">40</span>
+                <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: 10%;margin-left: calc({{plannifiedEvents.length}}/1.5*10%)">
+                  <span class="number-huge" style="font-size: 28px; color: #0679c8">{{plannifiedEvents.length}}</span>
                   <br/>
-                  <i class="fa fa-sort-desc big" style="margin-top: -15px; font-size: 2em;"></i>
                 </div>
               </div>
               <div class="progress">
-                <div class="bar" role="progressbar" style="width: 20%;border-radius: 0px;"></div>
-                <div class="bar completed-bar" role="progressbar" style="width: 30%;background-color: #0100ff;border-radius: 0px;"></div>
+                <div class="bar" role="progressbar" style="width: calc({{plannifiedEvents.length}}*10%);border-radius: 0px;"></div>
+                <div class="bar completed-bar" role="progressbar" style="width: calc({{finishedEvents.length}}*10%);background-color: #0100ff;border-radius: 0px;"></div>
               </div>
               <div class="container-fixed-height margin-bottom" style="margin-bottom: 10px;min-height: 30px;position: relative;">
-                <div class="performance_number" style="left:20%;margin-left: -12px;text-align: center;position: absolute;top: 0px;">
-                  <i class="fa fa-sort-asc"></i>
+                <div class="performance_number" style="left:10%;margin-left: calc({{finishedEvents.length}}/0.6*10%);text-align: center;position: absolute;top: 0px;">
                   <br>
-                  <span class="number-big" style="font-size: 20px;">20</span>
+                  <span class="number-big" style="font-size: 20px;color:#0100ff; ">{{finishedEvents.length}}</span>
                 </div>
               </div>
             </div>
             <div class="span4">
               <b>Reuniones</b>
               <div class="container-fixed-height margin-top" style="margin-top: 10px;min-height: 30px;position: relative;">
-                <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: calc({{plannedMeetings.length}}*2*10%);margin-left: -10px">
-                  <span class="number-huge" style="font-size: 28px;">
+                <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: 10%;margin-left: calc({{plannedMeetings.length}}/1.5*10%)">
+                  <span class="number-huge" style="font-size: 28px; color: #0679c8">
                   	{{#if plannedMeetings}}
                   		{{plannedMeetings.length}}
                   	{{else}}
@@ -112,13 +120,13 @@
                 </div>
               </div>
               <div class="progress">
-                <div class="bar" role="progressbar" style="width: calc({{plannedMeetings.length}}*10%);border-radius: 0px; background-color: yellow;"></div>
-                <div class="bar completed-bar" role="progressbar" style="width: calc({{heldedMeetings.length}}*10%);background-color: #00975C; border-radius: 0px;"></div>
+                <div class="bar" role="progressbar" style="width: calc({{plannedMeetings.length}}*10%);border-radius: 0px;"></div>
+                <div class="bar completed-bar" role="progressbar" style="width: calc({{heldedMeetings.length}}*10%);background-color: #0100ff; border-radius: 0px;"></div>
               </div>
               <div class="container-fixed-height margin-bottom" style="margin-bottom: 10px;min-height: 30px;position: relative;">
-                <div class="performance_number" style="left:calc({{heldedMeetings.length}}*10%);margin-left: -12px;text-align: center;position: absolute;top: 0px;">
+                <div class="performance_number" style="left:10%;margin-left: calc({{heldedMeetings.length}}/0.6*10%);text-align: center;position: absolute;top: 0px;">
                   <br>
-                  <span class="number-big" style="font-size: 20px;">{{#if heldedMeetings}}
+                  <span class="number-big" style="font-size: 20px; color: #0100ff;">{{#if heldedMeetings}}
                       {{heldedMeetings.length}}
                     {{else}}
                       0
@@ -129,21 +137,31 @@
             <div class="span4">
               <b>Llamadas</b>
               <div class="container-fixed-height margin-top" style="margin-top: 10px;min-height: 30px;position: relative;">
-                <div class="performance_number" style="text-align: center;position: absolute;top: 0px;left: 30%;margin-left: -10px">
-                  <span class="number-huge" style="font-size: 28px;">30</span>
+                <div class="performance_number" style="text-align: center;position: absolute;top: 0px;margin-left: calc({{plannedCalls.length}}/1.5*10%)">
+                  <span class="number-huge" style="font-size: 28px;color: #0679c8;">
+                    {{#if plannedCalls}}
+                      {{plannedCalls.length}}
+                    {{else}}
+                      0
+                    {{/if}}
+                  </span>
                   <br/>
-                  <i class="fa fa-sort-desc big" style="margin-top: -15px; font-size: 2em;"></i>
                 </div>
               </div>
               <div class="progress">
-                <div class="bar" role="progressbar" style="width: 20%;border-radius: 0px;"></div>
-                <div class="bar completed-bar" role="progressbar" style="width: 30%;background-color: #0100ff;border-radius: 0px;"></div>
+                <div class="bar" role="progressbar" style="width: calc({{plannedCalls.length}}*10%);border-radius: 0px;"></div>
+                <div class="bar completed-bar" role="progressbar" style="width: calc({{heldedCalls.length}}*10%);background-color: #0100ff;border-radius: 0px;"></div>
               </div>
               <div class="container-fixed-height margin-bottom" style="margin-bottom: 10px;min-height: 30px;position: relative;">
-                <div class="performance_number" style="left:10%;margin-left: -12px;text-align: center;position: absolute;top: 0px;">
-                  <i class="fa fa-sort-asc"></i>
+                <div class="performance_number" style="margin-left: calc({{heldedCalls.length}}/0.6*10%);text-align: center;position: absolute;top: 0px;">
                   <br>
-                  <span class="number-big" style="font-size: 20px;">10</span>
+                  <span class="number-big" style="font-size: 20px;color: #0100ff;">
+                    {{#if heldedCalls}}
+                      {{heldedCalls.length}}
+                    {{else}}
+                      0
+                    {{/if}}
+                  </span>
                 </div>
               </div>
             </div>
@@ -168,8 +186,8 @@
   </div>
   <div class="span3">
     <div class="square-yellow" style="background-color: #FDD300; color: white; padding: 25px; height: 45px; width: 150px; font-size: 20px; vertical-align: middle;text-align: center;">
-      <i class="fa fa-dollar fa-2x" style="color: white;"></i> $ 1,000,000
-      <div class="big10" style="font-size: 11px;">Revenue Target</div>
+      <i class="fa fa-dollar fa-2x" style="color: white;"></i> {{customerData.revenue_target}}
+      <div class="big10" style="font-size: 11px;">Objetivo de ingresos</div>
     </div>
   </div>
   <div class="span3">
@@ -186,7 +204,7 @@
   <div class="span3">
     <div class="square-green" style="background-color: #00975C; color: white; padding: 25px; height: 45px; width: 150px; font-size: 20px; vertical-align: middle;text-align: center;">
       <i class="fa fa-dollar fa-2x" style="color: white;"></i>
-      <div class="big10" style="font-size: 11px;">Current Pipeline</div>
+      <div class="big10" style="font-size: 11px;">Moneda recurrente</div>
     </div>
   </div>
 </div>
