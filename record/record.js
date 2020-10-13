@@ -3,10 +3,16 @@
 
     initialize: function(options) {
         this._super('initialize', [options]);
-        this.listenTo(this, "data:sync:complete", this.loadAccountData(options));
+        this.model.once('sync', function(){
+            this.loadAccountData();
+        }, this);
     },
 
-    loadAccountData: function(options){
+    _render: function(){
+        this._super("_render");
+    },
+
+    loadAccountData: function(){
     	myData = new Object();
     	this.myData = myData;
         //Meetings data
@@ -31,10 +37,6 @@
         this.myData['contact'] = [];
         this.myData['customerData'] = {};
     	this.render();
-
-    	if(options && _.isFunction(options.complete)){
-    		options.complete();
-    	}
 
     	let self = this;
     	let account = self.model.attributes.id;
@@ -115,7 +117,6 @@
         });
     	this.loadOpportunitiesData(self,account);
         this.loadContactData(self,account);
-        console.log(self.myData);
 	},
 
     loadOpportunitiesData: function(obj,account){
